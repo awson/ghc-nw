@@ -1,0 +1,82 @@
+diff -urN foundation-0.0.17/Foundation/System/Bindings/Time.hsc foundation-0.0.17p/Foundation/System/Bindings/Time.hsc
+--- foundation-0.0.17/Foundation/System/Bindings/Time.hsc	2017-08-05 13:49:52.000000000 +0300
++++ foundation-0.0.17p/Foundation/System/Bindings/Time.hsc	2017-12-08 11:58:12.281642500 +0300
+@@ -10,13 +10,14 @@
+ import Foreign.C.Types
+ 
+ #include <time.h>
+-#include <sys/time.h>
+ #include "foundation_system.h"
+ 
++#if defined _MSC_VER && _MSC_VER < 1900
++#include "foundation_time_compat.h"
++#endif
++
+ type CClockId = CInt
+ data CTimeSpec
+-data CTimeVal
+-data CTimeZone
+ 
+ size_CTimeSpec :: CSize
+ size_CTimeSpec = #const sizeof(struct timespec)
+@@ -27,12 +28,6 @@
+ ofs_CTimeSpec_NanoSeconds :: Offset Word8
+ ofs_CTimeSpec_NanoSeconds = Offset (#offset struct timespec, tv_nsec)
+ 
+-size_CTimeVal :: CSize
+-size_CTimeVal = #const sizeof(struct timeval)
+-
+-size_CTimeZone :: CSize
+-size_CTimeZone = #const sizeof(struct timezone)
+-
+ size_CTimeT :: CSize
+ size_CTimeT = #const sizeof(time_t)
+ 
+@@ -121,6 +116,3 @@
+ foreign import ccall unsafe "clock_gettime"
+     sysTimeClockGetTime :: CClockId -> Ptr CTimeSpec -> IO CInt
+ #endif
+-
+-foreign import ccall unsafe "gettimeofday"
+-    sysTimeGetTimeOfDay :: Ptr CTimeVal -> Ptr CTimeZone -> IO CInt
+diff -urN foundation-0.0.17/cbits/foundation_bits.h foundation-0.0.17p/cbits/foundation_bits.h
+--- foundation-0.0.17/cbits/foundation_bits.h	2017-02-04 11:49:36.000000000 +0300
++++ foundation-0.0.17p/cbits/foundation_bits.h	2017-12-07 18:43:04.053699500 +0300
+@@ -165,13 +165,13 @@
+ }
+ #endif
+ 
+-#ifdef __GNUC__
++#if defined __GNUC__ || defined __clang__
+ #define bitfn_ntz(n) __builtin_ctz(n)
+ #else
+ #error "define ntz for your platform"
+ #endif
+ 
+-#ifdef __MINGW32__
++#if defined __MINGW32__ || defined _MSC_VER
+   # define LITTLE_ENDIAN 1234
+   # define BYTE_ORDER    LITTLE_ENDIAN
+ #elif defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
+diff -urN foundation-0.0.17/cbits/foundation_time.c foundation-0.0.17p/cbits/foundation_time.c
+--- foundation-0.0.17/cbits/foundation_time.c	2017-07-04 11:44:58.000000000 +0300
++++ foundation-0.0.17p/cbits/foundation_time.c	2017-12-07 18:43:04.053699500 +0300
+@@ -92,6 +92,7 @@
+ 
+ int foundation_time_clock_getres(unsigned int clockid, struct timespec *timespec)
+ {
++	return -1;
+ }
+ 
+ int foundation_time_clock_gettime(unsigned int clockid, struct timespec *ct)
+diff -urN foundation-0.0.17/cbits/foundation_time_compat.h foundation-0.0.17p/cbits/foundation_time_compat.h
+--- foundation-0.0.17/cbits/foundation_time_compat.h	1970-01-01 03:00:00.000000000 +0300
++++ foundation-0.0.17p/cbits/foundation_time_compat.h	2017-12-08 11:59:44.751059600 +0300
+@@ -0,0 +1,7 @@
++#include <time.h>
++
++struct timespec
++{
++    time_t tv_sec;
++    long   tv_nsec;
++};

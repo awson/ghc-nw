@@ -1,0 +1,38 @@
+diff -urN ieee754-0.8.0/cbits/double.c ieee754-0.8.0p/cbits/double.c
+--- ieee754-0.8.0/cbits/double.c	2017-01-30 14:15:18.000000000 +0300
++++ ieee754-0.8.0p/cbits/double.c	2017-12-06 12:24:02.703738800 +0300
+@@ -27,6 +27,7 @@
+     return ux.w == uy.w;
+ }
+ 
++#ifndef _MSC_VER
+ double
+ copysign (double x, double y)
+ {
+@@ -38,6 +39,7 @@
+     uz.w = sign | val;
+     return uz.d;
+ }
++#endif
+ 
+ /* ported from tango/math/IEEE.d nextup */
+ double
+diff -urN ieee754-0.8.0/cbits/float.c ieee754-0.8.0p/cbits/float.c
+--- ieee754-0.8.0/cbits/float.c	2017-01-30 14:15:18.000000000 +0300
++++ ieee754-0.8.0p/cbits/float.c	2017-12-06 12:24:26.048294100 +0300
+@@ -28,6 +28,7 @@
+     return ux.w == uy.w;
+ }
+ 
++#ifndef _MSC_VER
+ float
+ copysignf (float x, float y)
+ {
+@@ -39,6 +40,7 @@
+     uz.w = sign | val;
+     return uz.f;
+ }
++#endif
+ 
+ /* ported from tango/math/IEEE.d nextupf */
+ float

@@ -1,0 +1,77 @@
+diff -urN cryptonite-0.24/cbits/cryptonite_bitfn.h cryptonite-0.24p/cbits/cryptonite_bitfn.h
+--- cryptonite-0.24/cbits/cryptonite_bitfn.h	2017-02-20 09:53:45.000000000 +0300
++++ cryptonite-0.24p/cbits/cryptonite_bitfn.h	2017-11-28 11:35:24.312379100 +0300
+@@ -165,13 +165,13 @@
+ }
+ #endif
+ 
+-#ifdef __GNUC__
++#if defined __GNUC__ || defined __clang__
+ #define bitfn_ntz(n) __builtin_ctz(n)
+ #else
+ #error "define ntz for your platform"
+ #endif
+ 
+-#ifdef __MINGW32__
++#if defined __MINGW32__ || defined _MSC_VER
+   # define LITTLE_ENDIAN 1234
+   # define BYTE_ORDER    LITTLE_ENDIAN
+ #elif defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
+diff -urN cryptonite-0.24/cbits/decaf/include/word.h cryptonite-0.24p/cbits/decaf/include/word.h
+--- cryptonite-0.24/cbits/decaf/include/word.h	2017-07-08 10:14:08.000000000 +0300
++++ cryptonite-0.24p/cbits/decaf/include/word.h	2017-11-28 12:29:49.968919700 +0300
+@@ -5,14 +5,7 @@
+ #ifndef __WORD_H__
+ #define __WORD_H__
+ 
+-/* for posix_memalign */
+-#define _XOPEN_SOURCE 600
+-#define __STDC_WANT_LIB_EXT1__ 1 /* for memset_s */
+ #include <string.h>
+-#if defined(__sun) && defined(__SVR4)
+-extern int posix_memalign(void **, size_t, size_t);
+-#endif
+-
+ #include <assert.h>
+ #include <stdint.h>
+ #include "arch_intrinsics.h"
+@@ -27,8 +20,6 @@
+ #define _DEFAULT_SOURCE 1
+ #endif
+ 
+-#include "portable_endian.h"
+-
+ #include <stdlib.h>
+ #include <sys/types.h>
+ #include <inttypes.h>
+@@ -211,30 +202,6 @@
+     }
+ #endif
+ 
+-/**
+- * Allocate memory which is sufficiently aligned to be used for the
+- * largest vector on the system (for now that's a big_register_t).
+- *
+- * Man malloc says that it does this, but at least for AVX2 on MacOS X,
+- * it's lying.
+- *
+- * @param size The size of the region to allocate.
+- * @return A suitable pointer, which can be free'd with free(),
+- * or NULL if no memory can be allocated.
+- */
+-static CRYPTONITE_DECAF_INLINE void *
+-malloc_vector(size_t size) {
+-    void *out = NULL;
+-    
+-    int ret = posix_memalign(&out, sizeof(big_register_t), size);
+-    
+-    if (ret) {
+-        return NULL;
+-    } else {
+-        return out;
+-    }
+-}
+-
+ /* PERF: vectorize vs unroll */
+ #ifdef __clang__
+ #if 100*__clang_major__ + __clang_minor__ > 305

@@ -1,0 +1,12 @@
+diff -urN postgresql-libpq-0.9.3.1/postgresql-libpq.cabal postgresql-libpq-0.9.3.1p/postgresql-libpq.cabal
+--- postgresql-libpq-0.9.3.1/postgresql-libpq.cabal	2017-05-15 08:45:38.000000000 +0300
++++ postgresql-libpq-0.9.3.1p/postgresql-libpq.cabal	2017-11-28 09:08:00.670986700 +0300
+@@ -40,7 +40,7 @@
+   if flag(use-pkg-config)
+     Pkgconfig-depends:   libpq
+   else
+-    Extra-Libraries:     pq
++    Extra-Libraries:     libpq
+     if os(openbsd)
+       Extra-Libraries:     crypto ssl
+ 

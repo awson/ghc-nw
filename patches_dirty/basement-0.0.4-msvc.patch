@@ -1,0 +1,34 @@
+diff -urN basement-0.0.4/Basement/Types/OffsetSize.hs basement-0.0.4p/Basement/Types/OffsetSize.hs
+--- basement-0.0.4/Basement/Types/OffsetSize.hs	2017-11-11 12:52:31.000000000 +0300
++++ basement-0.0.4p/Basement/Types/OffsetSize.hs	2017-11-27 23:51:30.537389000 +0300
+@@ -37,7 +37,6 @@
+     , sizeOfE
+     , csizeOfOffset
+     , csizeOfSize
+-    , sizeOfCSSize
+     , sizeOfCSize
+     , Countable
+     , Offsetable
+@@ -52,7 +51,6 @@
+ import GHC.Int
+ import GHC.Prim
+ import Foreign.C.Types
+-import System.Posix.Types (CSsize (..))
+ import Data.Bits
+ import Basement.Compat.Base
+ import Basement.Compat.Semigroup
+@@ -241,14 +239,6 @@
+ csizeOfOffset (Offset (I# sz)) = CSize (W64# (int2Word# sz))
+ #endif
+ 
+-sizeOfCSSize :: CSsize -> CountOf Word8
+-sizeOfCSSize (CSsize (-1))      = error "invalid size: CSSize is -1"
+-#if WORD_SIZE_IN_BITS < 64
+-sizeOfCSSize (CSsize (I32# sz)) = CountOf (I# sz)
+-#else
+-sizeOfCSSize (CSsize (I64# sz)) = CountOf (I# sz)
+-#endif
+-
+ sizeOfCSize :: CSize -> CountOf Word8
+ #if WORD_SIZE_IN_BITS < 64
+ sizeOfCSize (CSize (W32# sz)) = CountOf (I# (word2Int# sz))
