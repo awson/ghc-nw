@@ -2,6 +2,29 @@
 
 <h3>General Information</h3>
 
+<div style="border:1px solid black;">
+<div style="margin: 10px 20px;">
+June 4, 2018 edit.
+<p>
+A problem in the porting approach has been discovered a couple of weeks ago (some things, e.g. profiling,
+were broken).
+</p>
+<p>
+It is now fixed in my internal builds of GHC HEAD.
+</p>
+<p>
+Also, it is now fully compatible with stock MS and LLVM linkers and ar/llvm-ar utilities. The only
+remaining non-standard dependency is modified clang (and llc). This modification is a tiny one-line
+workaround for a GHC bug, which otherwise would require quite a bit of work to be fixed properly (on the GHC side).
+</p>
+<p>
+In general, my build is lighter and faster than stock mingw-based distro, but I didn't bother to release
+my improved builds of GHC 8.4.x and GHC HEAD since the apparent lack of interest.
+Still, if anyone is interested, please let me know.
+</p>
+</div>
+</div>
+
 <p>
 This is the <a href="https://www.haskell.org/ghc">GHC</a> 8.2.2+ 64-bit Windows distro,
 based on and targeting Microsoft Visual C runtime and native Windows SDK
