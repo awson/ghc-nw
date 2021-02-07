@@ -1,0 +1,28 @@
+diff -urN a/cbits/mktemp.c b/cbits/mktemp.c
+--- a/cbits/mktemp.c	2001-09-09 05:46:40.000000000 +0400
++++ b/cbits/mktemp.c	2021-02-05 13:38:59.021997100 +0300
+@@ -33,7 +33,12 @@
+  * SUCH DAMAGE.
+  */
+ 
++#ifdef __MINGW32__
+ #include <sys/param.h>
++#else
++#include <sys/stat_win32compat.h>
++#define MAXPATHLEN _MAX_PATH
++#endif
+ #include <sys/stat.h>
+ #include <fcntl.h>
+ #include <errno.h>
+diff -urN a/unix-compat.cabal b/unix-compat.cabal
+--- a/unix-compat.cabal	2021-02-05 13:39:00.000000000 +0300
++++ b/unix-compat.cabal	2021-02-05 13:38:59.001794500 +0300
+@@ -44,7 +44,7 @@
+       cbits/HsUname.c
+       cbits/mktemp.c
+ 
+-    extra-libraries: msvcrt
++    extra-ghci-libraries: ucrtbase
+     build-depends: Win32 >= 2.5.0.0
+ 
+     if flag(old-time)

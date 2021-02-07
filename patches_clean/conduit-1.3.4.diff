@@ -1,0 +1,11 @@
+diff -urN a/conduit.cabal b/conduit.cabal
+--- a/conduit.cabal	2021-02-03 11:25:55.181704800 +0300
++++ b/conduit.cabal	2021-02-03 11:24:55.076782800 +0300
+@@ -61,6 +61,7 @@
+     build-depends:     Win32
+     other-modules:     System.Win32File
+     cpp-options:       -DWINDOWS
++    extra-ghci-libraries: ucrtbase
+   else
+     build-depends:     unix
+ 

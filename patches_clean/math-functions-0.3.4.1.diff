@@ -1,0 +1,12 @@
+diff -urN a/math-functions.cabal b/math-functions.cabal
+--- a/math-functions.cabal	2021-02-03 11:25:55.258867300 +0300
++++ b/math-functions.cabal	2021-02-03 11:25:00.701948800 +0300
+@@ -93,6 +93,8 @@
+     Numeric.Sum
+   other-modules:
+     Numeric.SpecFunctions.Compat
++  if os(windows)
++    extra-ghci-libraries: ucrtbase
+ 
+ test-suite math-function-tests
+   default-language: Haskell2010

@@ -1,0 +1,37 @@
+diff -urN a/cbits/common.c b/cbits/common.c
+--- a/cbits/common.c	2018-05-22 15:47:15.000000000 +0300
++++ b/cbits/common.c	2018-06-17 18:19:16.678413400 +0300
+@@ -1,5 +1,9 @@
+ #include "defs.h"
+ 
++#ifdef _WIN32
++#define WIN32
++#endif
++
+ #ifdef WIN32
+ #include <windows.h>
+ #else
+diff -urN a/cbits/defs.h b/cbits/defs.h
+--- a/cbits/defs.h	2018-05-22 15:47:15.000000000 +0300
++++ b/cbits/defs.h	2018-06-17 18:16:56.552193700 +0300
+@@ -2,7 +2,6 @@
+ #define HASHTABLES_DEFS_H
+ 
+ #include <stdint.h>
+-#include <strings.h>
+ 
+ typedef uintptr_t full_hash_t;
+ typedef uint16_t small_hash_t;
+diff -urN a/cbits/sse-42.c b/cbits/sse-42.c
+--- a/cbits/sse-42.c	2018-05-22 15:47:15.000000000 +0300
++++ b/cbits/sse-42.c	2018-06-17 18:22:49.386797400 +0300
+@@ -49,8 +49,7 @@
+ #define _MODE (SIDD_UWORD_OPS | SIDD_CMP_EQUAL_EACH)
+ 
+ static inline __m128i cmp_mask(__m128i a, __m128i b) {
+-    const int mode = SIDD_UWORD_OPS | SIDD_CMP_EQUAL_EACH | SIDD_BIT_MASK;
+-    return _mm_cmpistrm(a, b, mode);
++    return _mm_cmpistrm(a, b, SIDD_UWORD_OPS | SIDD_CMP_EQUAL_EACH | SIDD_BIT_MASK);
+ }
+ 
+ static inline int32_t line_result(uint32_t m, int start) {

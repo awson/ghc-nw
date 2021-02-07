@@ -1,0 +1,20 @@
+diff -urN a/persistent-sqlite.cabal b/persistent-sqlite.cabal
+--- a/persistent-sqlite.cabal	2021-02-03 11:25:55.327947500 +0300
++++ b/persistent-sqlite.cabal	2021-02-03 11:26:39.414161200 +0300
+@@ -73,7 +73,7 @@
+         include-dirs: cbits
+         includes:    sqlite3.h
+         install-includes: sqlite3.h
+-        cc-options:  -fPIC -std=c99
++        cc-options:  -std=c99
+     if flag(full-text-search)
+       cc-options: -DSQLITE_ENABLE_FTS3
+                   -DSQLITE_ENABLE_FTS3_PARENTHESIS
+@@ -91,6 +91,7 @@
+     c-sources: cbits/config.c
+ 
+     if !os(windows)
++        cc-options:  -fPIC
+         extra-libraries: pthread
+ 
+ source-repository head

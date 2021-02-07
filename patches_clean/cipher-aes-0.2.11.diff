@@ -1,6 +1,6 @@
-diff -urN cipher-aes-0.2.11/cbits/bitfn.h cipher-aes-0.2.11p/cbits/bitfn.h
---- cipher-aes-0.2.11/cbits/bitfn.h	2015-06-21 15:13:51.000000000 +0300
-+++ cipher-aes-0.2.11p/cbits/bitfn.h	2017-11-28 10:42:11.975711500 +0300
+diff -urN a/cbits/bitfn.h b/cbits/bitfn.h
+--- a/cbits/bitfn.h	2015-06-21 15:13:51.000000000 +0300
++++ b/cbits/bitfn.h	2021-02-03 11:24:54.252383100 +0300
 @@ -158,13 +158,13 @@
  }
  #endif

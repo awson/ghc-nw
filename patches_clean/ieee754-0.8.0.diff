@@ -1,6 +1,6 @@
-diff -urN ieee754-0.8.0/cbits/double.c ieee754-0.8.0p/cbits/double.c
---- ieee754-0.8.0/cbits/double.c	2017-01-30 14:15:18.000000000 +0300
-+++ ieee754-0.8.0p/cbits/double.c	2017-12-06 12:24:02.703738800 +0300
+diff -urN a/cbits/double.c b/cbits/double.c
+--- a/cbits/double.c	2017-01-30 14:15:18.000000000 +0300
++++ b/cbits/double.c	2021-02-03 11:24:57.539272500 +0300
 @@ -27,6 +27,7 @@
      return ux.w == uy.w;
  }
@@ -17,9 +17,9 @@ diff -urN ieee754-0.8.0/cbits/double.c ieee754-0.8.0p/cbits/double.c
  
  /* ported from tango/math/IEEE.d nextup */
  double
-diff -urN ieee754-0.8.0/cbits/float.c ieee754-0.8.0p/cbits/float.c
---- ieee754-0.8.0/cbits/float.c	2017-01-30 14:15:18.000000000 +0300
-+++ ieee754-0.8.0p/cbits/float.c	2017-12-06 12:24:26.048294100 +0300
+diff -urN a/cbits/float.c b/cbits/float.c
+--- a/cbits/float.c	2017-01-30 14:15:18.000000000 +0300
++++ b/cbits/float.c	2021-02-03 11:24:57.559481700 +0300
 @@ -28,6 +28,7 @@
      return ux.w == uy.w;
  }

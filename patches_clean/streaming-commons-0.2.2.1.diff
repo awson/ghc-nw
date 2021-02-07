@@ -1,0 +1,11 @@
+diff -urN a/streaming-commons.cabal b/streaming-commons.cabal
+--- a/streaming-commons.cabal	2021-02-03 11:25:55.374818400 +0300
++++ b/streaming-commons.cabal	2021-02-03 11:25:03.274678300 +0300
+@@ -111,6 +111,7 @@
+ 
+   if os(windows)
+     cpp-options:       -DWINDOWS
++    extra-ghci-libraries: ucrtbase
+   else
+     build-depends:     unix
+ 

@@ -1,0 +1,81 @@
+diff -urN a/cxx-src/HaskellException.cxx b/cxx-src/HaskellException.cxx
+--- a/cxx-src/HaskellException.cxx	2020-09-20 13:15:31.000000000 +0300
++++ b/cxx-src/HaskellException.cxx	2021-02-05 13:42:30.453655000 +0300
+@@ -10,7 +10,13 @@
+ #include <cstring>
+ #include <cstdlib>
+ 
+-#if defined(__GNUC__) || defined(__clang__)
++#if defined(__GNUC__) || (defined(__clang__) && !defined(_MSC_VER))
++#define ITA_ABI 1
++#else
++#define ITA_ABI 0
++#endif
++
++#if ITA_ABI
+ #include <cxxabi.h>
+ #include <string>
+ #endif
+@@ -37,7 +43,7 @@
+ // <https://stackoverflow.com/questions/561997/determining-exception-type-after-the-exception-is-caught/47164539#47164539>
+ // regarding how to show the type of an exception.
+ 
+-#if defined(__GNUC__) || defined(__clang__)
++#if ITA_ABI
+ const char* currentExceptionTypeName()
+ {
+   int demangle_status;
+@@ -46,7 +52,7 @@
+ #endif
+ 
+ void setMessageOfStdException(std::exception &e,char** __inline_c_cpp_error_message__){
+-#if defined(__GNUC__) || defined(__clang__)
++#if ITA_ABI
+   const char* demangle_result = currentExceptionTypeName();
+   std::string message = "Exception: " + std::string(e.what()) + "; type: " + std::string(demangle_result);
+ #else
+@@ -58,7 +64,7 @@
+ }
+ 
+ void setMessageOfOtherException(char** __inline_c_cpp_error_message__){
+-#if defined(__GNUC__) || defined(__clang__)
++#if ITA_ABI
+   const char* message = currentExceptionTypeName();
+   size_t message_len = strlen(message) + 1;
+   *__inline_c_cpp_error_message__ = static_cast<char*>(std::malloc(message_len));
+diff -urN a/inline-c-cpp.cabal b/inline-c-cpp.cabal
+--- a/inline-c-cpp.cabal	2021-02-05 13:38:52.000000000 +0300
++++ b/inline-c-cpp.cabal	2021-02-05 13:46:40.914138200 +0300
+@@ -35,9 +35,13 @@
+     -- bundle C++ code that requires a newer version of the standard.
+     -- Generated code in user libraries will be compiled with the language
+     -- version configured there.
+-    -std=c++11
++    -std=c++14
+     -Wall
+-  extra-libraries: stdc++
++  if os(windows)
++    extra-libraries:      msvcprt
++    extra-ghci-libraries: msvcp140 ucrtbase
++  else
++    extra-libraries: stdc++
+ 
+   if os(darwin)
+     -- avoid https://gitlab.haskell.org/ghc/ghc/issues/11829
+@@ -45,14 +49,14 @@
+ 
+   if impl(ghc >= 8.10)
+     ghc-options:
+-      -optcxx-std=c++11
++      -optcxx-std=c++14
+       -optcxx-Wall
+   else
+     -- On GHC < 8.10, we have to emulate -optcxx by making the C compiler compile
+     -- C++. GCC accepts this via -std, whereas Clang requires us to change the
+     -- command.
+     ghc-options:
+-      -optc-std=c++11
++      -optc-std=c++14
+       -optc-Wall
+     if os(darwin)
+       ghc-options: -pgmc=clang++

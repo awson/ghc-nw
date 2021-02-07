@@ -1,0 +1,13 @@
+diff -urN a/double-conversion.cabal b/double-conversion.cabal
+--- a/double-conversion.cabal	2016-12-13 22:37:31.000000000 +0300
++++ b/double-conversion.cabal	2020-03-31 08:58:27.714652900 +0300
+@@ -73,7 +73,8 @@
+ 
+   if os(windows)
+     if arch(x86_64)
+-      extra-libraries: stdc++-6 gcc_s_seh-1
++      extra-libraries: msvcprt
++      extra-ghci-libraries: msvcp140 ucrtbase
+     else
+       extra-libraries: stdc++-6 gcc_s_dw2-1
+   else

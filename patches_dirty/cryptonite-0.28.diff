@@ -1,6 +1,6 @@
-diff -urN cryptonite-0.24/cbits/cryptonite_bitfn.h cryptonite-0.24p/cbits/cryptonite_bitfn.h
---- cryptonite-0.24/cbits/cryptonite_bitfn.h	2017-02-20 09:53:45.000000000 +0300
-+++ cryptonite-0.24p/cbits/cryptonite_bitfn.h	2017-11-28 11:35:24.312379100 +0300
+diff -urN a/cbits/cryptonite_bitfn.h b/cbits/cryptonite_bitfn.h
+--- a/cbits/cryptonite_bitfn.h	2019-12-17 03:55:14.000000000 +0300
++++ b/cbits/cryptonite_bitfn.h	2021-02-05 13:38:47.655690900 +0300
 @@ -165,13 +165,13 @@
  }
  #endif
@@ -17,9 +17,9 @@ diff -urN cryptonite-0.24/cbits/cryptonite_bitfn.h cryptonite-0.24p/cbits/crypto
    # define LITTLE_ENDIAN 1234
    # define BYTE_ORDER    LITTLE_ENDIAN
  #elif defined(__FreeBSD__) || defined(__DragonFly__) || defined(__NetBSD__)
-diff -urN cryptonite-0.24/cbits/decaf/include/word.h cryptonite-0.24p/cbits/decaf/include/word.h
---- cryptonite-0.24/cbits/decaf/include/word.h	2017-07-08 10:14:08.000000000 +0300
-+++ cryptonite-0.24p/cbits/decaf/include/word.h	2017-11-28 12:29:49.968919700 +0300
+diff -urN a/cbits/decaf/include/word.h b/cbits/decaf/include/word.h
+--- a/cbits/decaf/include/word.h	2019-12-17 03:55:14.000000000 +0300
++++ b/cbits/decaf/include/word.h	2021-02-05 13:38:47.671339700 +0300
 @@ -5,14 +5,7 @@
  #ifndef __WORD_H__
  #define __WORD_H__
@@ -75,3 +75,14 @@ diff -urN cryptonite-0.24/cbits/decaf/include/word.h cryptonite-0.24p/cbits/deca
  /* PERF: vectorize vs unroll */
  #ifdef __clang__
  #if 100*__clang_major__ + __clang_minor__ > 305
+diff -urN a/cryptonite.cabal b/cryptonite.cabal
+--- a/cryptonite.cabal	2021-02-05 13:38:46.000000000 +0300
++++ b/cryptonite.cabal	2021-02-05 13:38:47.624426900 +0300
+@@ -384,6 +384,7 @@
+     Build-Depends:  Win32
+     Other-modules:  Crypto.Random.Entropy.Windows
+     extra-libraries: advapi32
++    extra-ghci-libraries: advapi32 ucrtbase
+   else
+     Other-modules:  Crypto.Random.Entropy.Unix
+ 

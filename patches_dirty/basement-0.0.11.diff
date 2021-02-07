@@ -1,7 +1,7 @@
-diff -urN basement-0.0.4/Basement/Types/OffsetSize.hs basement-0.0.4p/Basement/Types/OffsetSize.hs
---- basement-0.0.4/Basement/Types/OffsetSize.hs	2017-11-11 12:52:31.000000000 +0300
-+++ basement-0.0.4p/Basement/Types/OffsetSize.hs	2017-11-27 23:51:30.537389000 +0300
-@@ -37,7 +37,6 @@
+diff -urN a/Basement/Types/OffsetSize.hs b/Basement/Types/OffsetSize.hs
+--- a/Basement/Types/OffsetSize.hs	2019-06-30 10:22:18.000000000 +0300
++++ b/Basement/Types/OffsetSize.hs	2021-02-05 13:38:43.741587600 +0300
+@@ -38,7 +38,6 @@
      , sizeOfE
      , csizeOfOffset
      , csizeOfSize
@@ -10,14 +10,14 @@ diff -urN basement-0.0.4/Basement/Types/OffsetSize.hs basement-0.0.4p/Basement/T
      , Countable
      , Offsetable
 @@ -52,7 +51,6 @@
+ import GHC.Word
  import GHC.Int
  import GHC.Prim
- import Foreign.C.Types
 -import System.Posix.Types (CSsize (..))
  import Data.Bits
  import Basement.Compat.Base
- import Basement.Compat.Semigroup
-@@ -241,14 +239,6 @@
+ import Basement.Compat.C.Types
+@@ -237,14 +235,6 @@
  csizeOfOffset (Offset (I# sz)) = CSize (W64# (int2Word# sz))
  #endif
  

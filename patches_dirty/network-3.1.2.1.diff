@@ -1,0 +1,66 @@
+diff -urN a/Setup.hs b/Setup.hs
+--- a/Setup.hs	2001-09-09 04:46:40.000000000 +0300
++++ b/Setup.hs	2020-03-19 08:53:38.440784500 +0300
+@@ -3,4 +3,4 @@
+ import Distribution.Simple
+ 
+ main :: IO ()
+-main = defaultMainWithHooks autoconfUserHooks
++main = defaultMain
+diff -urN a/include/HsNet.h b/include/HsNet.h
+--- a/include/HsNet.h	2001-09-09 04:46:40.000000000 +0300
++++ b/include/HsNet.h	2020-02-15 08:28:10.915120900 +0300
+@@ -11,7 +11,7 @@
+ 
+ #ifndef INLINE
+ # if defined(_MSC_VER)
+-#  define INLINE extern __inline
++#  define INLINE static __inline
+ # elif defined(__GNUC_GNU_INLINE__)
+ #  define INLINE extern inline
+ # else
+diff -urN a/include/HsNetworkConfig.h b/include/HsNetworkConfig.h
+--- a/include/HsNetworkConfig.h	1970-01-01 03:00:00.000000000 +0300
++++ b/include/HsNetworkConfig.h	2020-03-19 09:11:58.572636700 +0300
+@@ -0,0 +1,26 @@
++#define HAVE_DECL_AI_ADDRCONFIG 1
++#define HAVE_DECL_AI_ALL 1
++#define HAVE_DECL_AI_NUMERICSERV 1
++#define HAVE_DECL_AI_V4MAPPED 1
++#define HAVE_DECL_IPPROTO_IP 1
++#define HAVE_DECL_IPPROTO_IPV6 1
++#define HAVE_DECL_IPPROTO_TCP 1
++#define HAVE_DECL_IPV6_V6ONLY 1
++#define HAVE_DECL_SO_PEERCRED 0
++#define HAVE_FCNTL_H 1
++#define HAVE_INTTYPES_H 1
++#define HAVE_LIMITS_H 1
++#define HAVE_MEMORY_H 1
++#define HAVE_NETIOAPI_H 1
++#define HAVE_STDINT_H 1
++#define HAVE_STDLIB_H 1
++#define HAVE_STRING_H 1
++#define HAVE_SYS_STAT_H 1
++#define HAVE_SYS_TYPES_H 1
++#define PACKAGE_BUGREPORT "libraries@haskell.org"
++#define PACKAGE_NAME "Haskell network package"
++#define PACKAGE_STRING "Haskell network package 3.1.2.1"
++#define PACKAGE_TARNAME "network"
++#define PACKAGE_URL ""
++#define PACKAGE_VERSION "3.1.2.1"
++#define STDC_HEADERS 1
+diff -urN a/network.cabal b/network.cabal
+--- a/network.cabal	2001-09-09 04:46:40.000000000 +0300
++++ b/network.cabal	2020-03-19 08:53:12.520790700 +0300
+@@ -34,10 +34,7 @@
+   > library
+   >   build-depends: network-uri-flag
+ category:       Network
+-build-type:     Configure
+-extra-tmp-files:
+-  config.log config.status autom4te.cache network.buildinfo
+-  include/HsNetworkConfig.h
++build-type:     Simple
+ extra-source-files:
+   README.md CHANGELOG.md
+   examples/*.hs tests/*.hs config.guess config.sub install-sh

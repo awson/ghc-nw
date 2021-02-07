@@ -1,0 +1,27 @@
+diff -urN a/lib/hssystemfileio-win32.c b/lib/hssystemfileio-win32.c
+--- a/lib/hssystemfileio-win32.c	2018-01-18 18:26:14.000000000 +0300
++++ b/lib/hssystemfileio-win32.c	2021-02-05 13:38:57.253449100 +0300
+@@ -1,23 +1,3 @@
+-/*
+-Before including anything, we need to fix up MinGW's MSVCRT defines.
+-
+-MinGW's <sys/stat.h> requires __MSVCRT_VERSION__ >= 0x0601 to define
+-_wstat64(). This is fine for the MinGW distributed with GHC, which sets
+-__MSVCRT_VERSION__ = 0x0700, but fails for the Haskell Platform because
+-its MinGW sets __MSVCRT_VERSION__ = 0x0600.
+-
+-Therefore, we include <_mingw.h> first and bump its MSVCRT if necessary.
+-*/
+-#include <_mingw.h>
+-
+-#if defined(__MSVCRT_VERSION__)
+-#  if __MSVCRT_VERSION__ < 0x0601
+-#    define __MSVCRT_VERSION__ 0x0601
+-#  endif
+-#else
+-#  define __MSVCRT_VERSION__ 0x0601
+-#endif
+-
+ #include "hssystemfileio-win32.h"
+ 
+ #include <io.h>

@@ -1,6 +1,6 @@
-diff -urN cryptohash-0.11.9/cbits/bitfn.h cryptohash-0.11.9p/cbits/bitfn.h
---- cryptohash-0.11.9/cbits/bitfn.h	2016-03-25 20:25:04.000000000 +0300
-+++ cryptohash-0.11.9p/cbits/bitfn.h	2017-11-28 12:35:07.302745300 +0300
+diff -urN a/cbits/bitfn.h b/cbits/bitfn.h
+--- a/cbits/bitfn.h	2016-03-25 20:25:04.000000000 +0300
++++ b/cbits/bitfn.h	2021-02-03 11:24:55.893698500 +0300
 @@ -158,7 +158,7 @@
  }
  #endif
