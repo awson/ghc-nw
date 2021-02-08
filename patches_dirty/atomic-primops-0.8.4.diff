@@ -1,0 +1,29 @@
+diff -urN a/Data/Atomics.hs b/Data/Atomics.hs
+--- a/Data/Atomics.hs	2001-09-09 04:46:40.000000000 +0300
++++ b/Data/Atomics.hs	2021-02-08 07:55:15.584926800 +0300
+@@ -1,5 +1,6 @@
+ {-# LANGUAGE  MagicHash, UnboxedTuples, ScopedTypeVariables, BangPatterns, CPP #-}
+ {-# LANGUAGE ForeignFunctionInterface #-}
++{-# LANGUAGE CApiFFI #-}
+ 
+ -- | Provides atomic memory operations on IORefs and Mutable Arrays.
+ --
+@@ -351,15 +352,15 @@
+ 
+ #if !(defined(mingw32_HOST_OS) && __GLASGOW_HASKELL__ < 802)
+ -- | Memory barrier implemented by the GHC rts (see SMP.h).
+-foreign import ccall  unsafe "store_load_barrier" storeLoadBarrier
++foreign import capi unsafe "store_load_barrier" storeLoadBarrier
+   :: IO ()
+ 
+ -- | Memory barrier implemented by the GHC rts (see SMP.h).
+-foreign import ccall unsafe "load_load_barrier" loadLoadBarrier
++foreign import capi unsafe "load_load_barrier" loadLoadBarrier
+   :: IO ()
+ 
+ -- | Memory barrier implemented by the GHC rts (see SMP.h).
+-foreign import ccall unsafe "write_barrier" writeBarrier
++foreign import capi unsafe "write_barrier" writeBarrier
+   :: IO ()
+ #else
+ #warning "importing store_load_barrier and friends from the package's C code."
