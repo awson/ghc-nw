@@ -1,6 +1,6 @@
 diff -urN a/Setup.hs b/Setup.hs
---- a/Setup.hs	2001-09-09 04:46:40.000000000 +0300
-+++ b/Setup.hs	2020-03-19 08:53:38.440784500 +0300
+--- a/Setup.hs	2020-11-26 04:06:46.000000000 +0300
++++ b/Setup.hs	2021-02-24 11:26:41.436726500 +0300
 @@ -3,4 +3,4 @@
  import Distribution.Simple
  
@@ -8,8 +8,8 @@ diff -urN a/Setup.hs b/Setup.hs
 -main = defaultMainWithHooks autoconfUserHooks
 +main = defaultMain
 diff -urN a/include/HsNet.h b/include/HsNet.h
---- a/include/HsNet.h	2001-09-09 04:46:40.000000000 +0300
-+++ b/include/HsNet.h	2020-02-15 08:28:10.915120900 +0300
+--- a/include/HsNet.h	2020-11-26 04:06:46.000000000 +0300
++++ b/include/HsNet.h	2021-02-24 11:26:41.439269800 +0300
 @@ -11,7 +11,7 @@
  
  #ifndef INLINE
@@ -21,7 +21,7 @@ diff -urN a/include/HsNet.h b/include/HsNet.h
  # else
 diff -urN a/include/HsNetworkConfig.h b/include/HsNetworkConfig.h
 --- a/include/HsNetworkConfig.h	1970-01-01 03:00:00.000000000 +0300
-+++ b/include/HsNetworkConfig.h	2020-03-19 09:11:58.572636700 +0300
++++ b/include/HsNetworkConfig.h	2021-02-24 11:26:41.442271200 +0300
 @@ -0,0 +1,26 @@
 +#define HAVE_DECL_AI_ADDRCONFIG 1
 +#define HAVE_DECL_AI_ALL 1
@@ -50,9 +50,9 @@ diff -urN a/include/HsNetworkConfig.h b/include/HsNetworkConfig.h
 +#define PACKAGE_VERSION "3.1.2.1"
 +#define STDC_HEADERS 1
 diff -urN a/network.cabal b/network.cabal
---- a/network.cabal	2001-09-09 04:46:40.000000000 +0300
-+++ b/network.cabal	2020-03-19 08:53:12.520790700 +0300
-@@ -34,10 +34,7 @@
+--- a/network.cabal	2020-11-26 04:06:46.000000000 +0300
++++ b/network.cabal	2021-02-24 11:27:34.367194400 +0300
+@@ -33,10 +33,7 @@
    > library
    >   build-depends: network-uri-flag
  category:       Network
@@ -64,3 +64,12 @@ diff -urN a/network.cabal b/network.cabal
  extra-source-files:
    README.md CHANGELOG.md
    examples/*.hs tests/*.hs config.guess config.sub install-sh
+@@ -94,7 +91,7 @@
+ 
+   include-dirs: include
+   includes: HsNet.h HsNetDef.h alignment.h win32defs.h
+-  install-includes: HsNet.h HsNetDef.h  alignment.h win32defs.h
++  install-includes: HsNet.h HsNetDef.h  alignment.h win32defs.h HsNetworkConfig.h
+   c-sources: cbits/HsNet.c cbits/cmsg.c
+   ghc-options: -Wall -fwarn-tabs
+   build-tools: hsc2hs
