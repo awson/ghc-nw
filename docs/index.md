@@ -180,6 +180,14 @@ cabal does: add necessary paths to your PATH env variable.
 All system package DLLs are accessible via
 `selected_location\ghc-8.10.5\lib\x86_64-windows-ghc-8.10.5`.
 
+Full distro also contains a large (438) set of prebuilt Haskell packages
+and utils (including haskell-language-server, linters, formatters, and
+even latest Agda compiled from git sources). These package DLLs are
+located at `selected_location\ghc-8.10.5\xtra\x86_64-windows-ghc-8.10.5`.
+
+`rundyn.bat` from distro's `bin` directory sets all the necessary paths
+to run dynamically linked programs for you, use `rundyn dynlinkedfoo`.
+
 If you want (like me) to create a large globally accessible package repo
 (e.g. using `cabal v1-install`) --- it's default location is
 `%APPDATA%\cabal\x86_64-windows-ghc-8.10.5` where all the package
