@@ -111,7 +111,7 @@ workarounds at the moment.
 ### Installation
 
 First, install Visual Studio 2019 "Desktop development with C++"
-workload (see e.g. `install_vs.bat` in distro `bin` directory).
+workload (see e.g. `install_vs.bat` in distro directory).
 
 Then just unpack the distro to any location, let the location be named
 'selected_location' then add 'selected_location\ghc-8.10.5\bin'
