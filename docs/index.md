@@ -4,6 +4,8 @@ This is a [GHC](https://www.haskell.org/ghc) 8.10.5 (8.10 branch as of
 Apr 11, 2021) 64-bit Windows distro, based on and targeting Microsoft
 Visual C runtime and native Windows SDK.
 
+[DOWNLOAD!](https://github.com/awson/ghc-nw/releases/tag/0.0.2)
+
 ### How it differs from stock Windows GHC distro
 
 This distro is based on the stock LLVM (clang, lld, llvm-lib) tools and
@@ -35,7 +37,7 @@ versions of packages.
 
 All stock GHC tools are position *dependent* executables and produce
 position *dependent* code that must be loaded into lower 2GB address
-space. Modern security standards consider this a disadvantage. Btw,
+space. Modern security standards consider this a disadvantage.
 Microsoft tools *won't even let you* create a DLL satisfying this
 condition.
 
@@ -114,8 +116,8 @@ First, install Visual Studio 2019 "Desktop development with C++"
 workload (see e.g. `install_vs.bat` in distro directory).
 
 Then just unpack the distro to any location, let the location be named
-'selected_location' then add 'selected_location\ghc-8.10.5\bin'
-(and also `selected_location\ghc-8.10.5\xtra\bin` is you want to
+'selected_location' then add `selected_location\ghc-8.10.5\bin`
+(and also `selected_location\ghc-8.10.5\xtra\bin` if you want to
 use extra utilities, such as Happy, Alex etc) to you PATH.
 
 Long ago I tested if things work when 'selected_location' contain
@@ -128,7 +130,7 @@ instead.
 For your convenience I include all the necessary stock LLVM tools into
 the distro, but you can use your own if want so.
 
-There exist 2 versions of each distro: "core" (GHC +
+There exist 2 versions of this distro: "core" (GHC +
 cabal/alex/happy/stack) and "full", which also contains a (large) set of
 prebuilt packages and useful utilities, and even the entire Agda
 compiler (from the current git HEAD).
@@ -189,7 +191,7 @@ package files in the global store is
 `%APPDATA%\cabal\store\ghc-8.10.5\package_id\lib`, where
 `package_id` is a composition of package name version and hash.
 
-If you deploy your executables to another machine, the simples way is to
+If you deploy your executables to another machine, the simplest way is to
 just copy all the necessary DLLs to the same location.
 
 ### Some Details
