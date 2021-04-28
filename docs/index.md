@@ -133,7 +133,7 @@ cabal/alex/happy/stack) and "full", which also contains a (large) set of
 prebuilt packages and useful utilities, and even the entire Agda
 compiler (from the current git HEAD).
 
-[Download!](https://github.com/awson/ghc-nw/releases/tag/0.0.2)
+[DOWNLOAD!](https://github.com/awson/ghc-nw/releases/tag/0.0.2)
 
 ### IMPORTANT
 
