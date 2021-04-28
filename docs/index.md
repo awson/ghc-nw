@@ -35,14 +35,14 @@ to the stock GHC and has exactly the same workflow. And this workflow is
 much faster than the full one because it doesn't create dynamic
 versions of packages.
 
-All stock GHC tools are position *dependent* executables and produce
-position *dependent* code that must be loaded into lower 2GB address
+All stock GHC tools are *position dependent* executables and produce
+*position dependent* code that must be loaded into lower 2GB address
 space. Modern security standards consider this a disadvantage.
 Microsoft tools *won't even let you* create a DLL satisfying this
 condition.
 
-Our tools are position independent executables and generate position
-independent code that can be loaded into arbitrary addresses.
+Our tools are *position independent* executables and generate *position
+independent* code that can be loaded into arbitrary addresses.
 
 ### Some other advantages
 
