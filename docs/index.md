@@ -31,9 +31,16 @@ The stock distro doesn't support this because of:
 
 For convenience, we also ship statically linked GHC (`ghc-static.exe`,
 to use it tell cabal `--with-ghc=ghc-static.exe`), which is analogous
-to the stock GHC and has exactly the same workflow. And this workflow is
-much faster than the full one because it doesn't create dynamic
+to the stock GHC and has exactly the same default workflow.
+
+This default workflow (build static libs and prelinked object files only)
+is much faster than full because it doesn't create dynamic
 versions of packages.
+
+The key difference between static and dynamic compilers is in that
+they have completely different interactive/TH modes: static compiler
+loads and parses object files directly, dynamic compiler links
+everything into DLLs and loads them using system facilities.
 
 All stock GHC tools are *position dependent* executables and produce
 *position dependent* code that must be loaded into lower 2GB address
